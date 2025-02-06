@@ -2,15 +2,13 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { RefreshCcw, Play, Gift, Code, Bug, Shield } from "lucide-react"
+import { RefreshCcw, Play } from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 const navItems = [
-  { icon: RefreshCcw, label: "Trade", href: "#" },
-  { icon: Play, label: "Stream", href: "#" },
-  { icon: Gift, label: "Rewards", href: "#" },
-  { icon: Code, label: "Develop", href: "#" },
-  { icon: Bug, label: "Bug Report", href: "#" },
-  { icon: Shield, label: "Security", href: "#" },
+  { icon: RefreshCcw, label: "Trade", href: "/" },
+  { icon: Play, label: "Stream", href: "/stream" },
 ]
 
 function DiscoverIcon({ className }: { className?: string }) {
@@ -40,7 +38,7 @@ function DiscoverIcon({ className }: { className?: string }) {
 
 export function Sidebar() {
   const [rotation, setRotation] = useState({ x: 0, y: 0 })
-  const [activeItem, setActiveItem] = useState("Discover")
+  const pathname = usePathname()
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget
@@ -55,8 +53,8 @@ export function Sidebar() {
   }
 
   return (
-    <div className="fixed top-0 left-0 h-screen bg-[#f9f8f5] p-4">
-      <div className="w-[300px] h-full bg-white rounded-[20px] p-4 overflow-y-auto scrollbar-hide">
+    <div className="w-[332px] h-screen bg-[#f9f8f5] p-4 overflow-y-auto">
+      <div className="h-full bg-white rounded-[20px] p-4 overflow-y-auto scrollbar-hide">
         <div className="space-y-8">
           <img
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-qYuSWr77I1ARzIygFqHFwbrIaRZBqs.svg"
@@ -120,33 +118,32 @@ export function Sidebar() {
 
           <nav className="space-y-2">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
                 className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group hover:translate-x-2
-                  ${activeItem === item.label ? "bg-[#E5F9FF]" : "hover:bg-[#E5F9FF]"}`}
-                onClick={() => setActiveItem(item.label)}
+                  ${pathname === item.href ? "bg-[#E5F9FF]" : "hover:bg-[#E5F9FF]"}`}
               >
                 <div
                   className={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]
                   ${
-                    activeItem === item.label
+                    pathname === item.href
                       ? "bg-gradient-to-br from-[#22d6ff] via-[#9fedff] to-[#3cff73]"
                       : "bg-white border border-[#E5F9FF]"
                   }`}
                 >
                   <item.icon
                     className={`w-5 h-5 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]
-                    ${activeItem === item.label ? "text-black" : "text-black/50 group-hover:text-black"}`}
+                    ${pathname === item.href ? "text-black" : "text-black/50 group-hover:text-black"}`}
                   />
                 </div>
                 <span
                   className={`font-medium transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]
-                  ${activeItem === item.label ? "text-black" : "text-black/50 group-hover:text-black"}`}
+                  ${pathname === item.href ? "text-black" : "text-black/50 group-hover:text-black"}`}
                 >
                   {item.label}
                 </span>
-              </a>
+              </Link>
             ))}
           </nav>
         </div>
