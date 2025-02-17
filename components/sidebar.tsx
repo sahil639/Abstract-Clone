@@ -2,13 +2,15 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { RefreshCcw, Play } from "lucide-react"
+import { RefreshCcw, Play, Gift } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import type React from "react" // Added import for React
 
 const navItems = [
   { icon: RefreshCcw, label: "Trade", href: "/" },
   { icon: Play, label: "Stream", href: "/stream" },
+  { icon: Gift, label: "Rewards", href: "/rewards" },
 ]
 
 function DiscoverIcon({ className }: { className?: string }) {
@@ -53,8 +55,8 @@ export function Sidebar() {
   }
 
   return (
-    <div className="w-[332px] h-screen bg-[#f9f8f5] p-4 overflow-y-auto">
-      <div className="h-full bg-white rounded-[20px] p-4 overflow-y-auto scrollbar-hide">
+    <div className="fixed left-0 top-0 w-[332px] h-screen bg-[#f9f8f5] p-4 overflow-y-auto">
+      <div className="h-full bg-white p-4 overflow-y-auto scrollbar-hide">
         <div className="space-y-8">
           <img
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-qYuSWr77I1ARzIygFqHFwbrIaRZBqs.svg"

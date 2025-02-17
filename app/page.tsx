@@ -6,14 +6,16 @@ export default function Home() {
   return (
     <>
       <Header />
-      <div className="mt-4 p-6 bg-white rounded-[20px] shadow-banner">
-        <h2 className="text-2xl font-bold mb-6">Most popular tokens</h2>
-        <div className="flex gap-4">
-          <div className="w-[392px] h-full">
-            <PriceChart />
-          </div>
-          <div className="flex-1">
-            <TokenList />
+      <div className="p-4">
+        <div className="mt-4 p-6 bg-white rounded-[20px] shadow-banner">
+          <h2 className="text-2xl font-bold mb-6">Most popular tokens</h2>
+          <div className="flex gap-4">
+            <div className="w-[392px] h-full">
+              <PriceChart />
+            </div>
+            <div className="flex-1">
+              <TokenList />
+            </div>
           </div>
         </div>
       </div>

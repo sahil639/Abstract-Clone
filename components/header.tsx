@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input"
 
 export function Header() {
   return (
-    <div className="w-full bg-white p-6 rounded-[20px] shadow-banner">
+    <div className="sticky top-0 bg-white p-6 shadow-banner z-10">
       <div className="max-w-4xl mx-auto text-center">
         <h1 className="text-[32px] font-bold mb-2">Trade anytime, anywhere</h1>
         <p className="text-[16px] text-gray-600 mb-6">Find the tokens you need, and exchange with ease.</p>
