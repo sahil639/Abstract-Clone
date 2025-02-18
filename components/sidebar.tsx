@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation"
 import type React from "react" // Added import for React
 
 const navItems = [
+  { icon: DiscoverIcon, label: "Discover", href: "/discover" },
   { icon: RefreshCcw, label: "Trade", href: "/" },
   { icon: Play, label: "Stream", href: "/stream" },
   { icon: Gift, label: "Rewards", href: "/rewards" },
