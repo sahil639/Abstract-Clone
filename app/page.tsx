@@ -1,6 +1,7 @@
 import { Header } from "@/components/header"
 import { TokenList } from "@/components/token-list"
 import { PriceChart } from "@/components/price-chart"
+import { TokenTable } from "@/components/token-table"
 
 export default function Home() {
   return (
@@ -17,6 +18,9 @@ export default function Home() {
               <TokenList />
             </div>
           </div>
+        </div>
+        <div className="mt-4">
+          <TokenTable />
         </div>
       </div>
     </>

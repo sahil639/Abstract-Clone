@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { RefreshCcw, Play, Gift } from "lucide-react"
+import { RefreshCcw, Play, Gift, Code } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import type React from "react" // Added import for React
@@ -12,6 +12,7 @@ const navItems = [
   { icon: RefreshCcw, label: "Trade", href: "/" },
   { icon: Play, label: "Stream", href: "/stream" },
   { icon: Gift, label: "Rewards", href: "/rewards" },
+  { icon: Code, label: "Develop", href: "/develop" },
 ]
 
 function DiscoverIcon({ className }: { className?: string }) {
