@@ -2,10 +2,11 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { RefreshCcw, Play, Gift, Code } from "lucide-react"
+import { RefreshCcw, Play, Gift, Code, Shield } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import type React from "react" // Added import for React
+import { SecurityDialog } from "@/components/security-dialog"
 
 const navItems = [
   { icon: DiscoverIcon, label: "Discover", href: "/discover" },
@@ -42,6 +43,7 @@ function DiscoverIcon({ className }: { className?: string }) {
 
 export function Sidebar() {
   const [rotation, setRotation] = useState({ x: 0, y: 0 })
+  const [securityOpen, setSecurityOpen] = useState(false)
   const pathname = usePathname()
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -57,102 +59,119 @@ export function Sidebar() {
   }
 
   return (
-    <div className="fixed left-0 top-0 w-[332px] h-screen bg-[#f9f8f5] p-4 overflow-y-auto">
-      <div className="h-full bg-white p-4 overflow-y-auto scrollbar-hide">
-        <div className="space-y-8">
-          <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-qYuSWr77I1ARzIygFqHFwbrIaRZBqs.svg"
-            alt="Abstract Logo"
-            className="h-4 w-auto mb-8"
-          />
-
-          <motion.div
-            className="relative bg-[#D2B48C] rounded-xl p-6 cursor-pointer shadow-lg overflow-hidden"
-            style={{
-              transformStyle: "preserve-3d",
-              transform: `perspective(1000px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
-            }}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={() => setRotation({ x: 0, y: 0 })}
-          >
-            {/* Add lighting effect */}
-            <div
-              className="absolute inset-0 w-full h-full pointer-events-none"
-              style={{
-                background: `radial-gradient(circle at ${rotation.y + 50}% ${rotation.x + 50}%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 60%)`,
-              }}
+    <>
+      <div className="fixed left-0 top-0 w-[332px] h-screen bg-[#f9f8f5] p-4 overflow-y-auto">
+        <div className="h-full bg-white p-4 overflow-y-auto scrollbar-hide">
+          <div className="space-y-8">
+            <img
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-qYuSWr77I1ARzIygFqHFwbrIaRZBqs.svg"
+              alt="Abstract Logo"
+              className="h-4 w-auto mb-8"
             />
 
-            {/* Add SVG to top-right corner */}
-            <svg
-              width="24"
-              height="22"
-              viewBox="0 0 24 22"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="absolute top-4 right-4"
+            <motion.div
+              className="relative bg-[#D2B48C] rounded-xl p-6 cursor-pointer shadow-lg overflow-hidden"
+              style={{
+                transformStyle: "preserve-3d",
+                transform: `perspective(1000px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
+              }}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={() => setRotation({ x: 0, y: 0 })}
             >
-              <g clipPath="url(#clip0_1761_1610)">
-                <path
-                  d="M15.821 14.9844L20.642 19.7594L18.38 21.9994L13.56 17.2254C13.146 16.8154 12.602 16.5924 12.015 16.5924C11.429 16.5924 10.884 16.8154 10.471 17.2254L5.65104 21.9994L3.38904 19.7594L8.20904 14.9844H15.818H15.821Z"
-                  fill="#805741"
-                />
-                <path
-                  d="M16.626 13.6077L23.209 15.3527L24.036 12.2897L17.453 10.5447C16.889 10.3957 16.42 10.0377 16.127 9.53566C15.834 9.03666 15.758 8.45266 15.909 7.89466L17.671 1.37366L14.579 0.555664L12.816 7.07566L16.623 13.6037L16.626 13.6077Z"
-                  fill="#805741"
-                />
-                <path
-                  d="M7.409 13.6077L0.827 15.3527L0 12.2897L6.583 10.5447C7.146 10.3957 7.616 10.0377 7.909 9.53566C8.202 9.03666 8.277 8.45266 8.127 7.89466L6.365 1.37366L9.457 0.555664L11.219 7.07566L7.413 13.6037L7.409 13.6077Z"
-                  fill="#805741"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_1761_1610">
-                  <rect width="24" height="22" fill="white" />
-                </clipPath>
-              </defs>
-            </svg>
+              {/* Add lighting effect */}
+              <div
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                style={{
+                  background: `radial-gradient(circle at ${rotation.y + 50}% ${rotation.x + 50}%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 60%)`,
+                }}
+              />
 
-            <div>
-              <div className="text-sm mb-2 text-[#805741]">Wallet</div>
-              <div className="text-2xl font-bold mb-4 text-[#805741]">$0.00</div>
-              <div className="text-xs bg-white rounded-full px-2 py-1 w-fit text-black">0.00% (7d)</div>
-            </div>
-          </motion.div>
-
-          <nav className="space-y-2">
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group hover:translate-x-2
-                  ${pathname === item.href ? "bg-[#E5F9FF]" : "hover:bg-[#E5F9FF]"}`}
+              {/* Add SVG to top-right corner */}
+              <svg
+                width="24"
+                height="22"
+                viewBox="0 0 24 22"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="absolute top-4 right-4"
               >
-                <div
-                  className={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]
-                  ${
-                    pathname === item.href
-                      ? "bg-gradient-to-br from-[#22d6ff] via-[#9fedff] to-[#3cff73]"
-                      : "bg-white border border-[#E5F9FF]"
-                  }`}
-                >
-                  <item.icon
-                    className={`w-5 h-5 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]
-                    ${pathname === item.href ? "text-black" : "text-black/50 group-hover:text-black"}`}
+                <g clipPath="url(#clip0_1761_1610)">
+                  <path
+                    d="M15.821 14.9844L20.642 19.7594L18.38 21.9994L13.56 17.2254C13.146 16.8154 12.602 16.5924 12.015 16.5924C11.429 16.5924 10.884 16.8154 10.471 17.2254L5.65104 21.9994L3.38904 19.7594L8.20904 14.9844H15.818H15.821Z"
+                    fill="#805741"
                   />
-                </div>
-                <span
-                  className={`font-medium transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]
-                  ${pathname === item.href ? "text-black" : "text-black/50 group-hover:text-black"}`}
+                  <path
+                    d="M16.626 13.6077L23.209 15.3527L24.036 12.2897L17.453 10.5447C16.889 10.3957 16.42 10.0377 16.127 9.53566C15.834 9.03666 15.758 8.45266 15.909 7.89466L17.671 1.37366L14.579 0.555664L12.816 7.07566L16.623 13.6037L16.626 13.6077Z"
+                    fill="#805741"
+                  />
+                  <path
+                    d="M7.409 13.6077L0.827 15.3527L0 12.2897L6.583 10.5447C7.146 10.3957 7.616 10.0377 7.909 9.53566C8.202 9.03666 8.277 8.45266 8.127 7.89466L6.365 1.37366L9.457 0.555664L11.219 7.07566L7.413 13.6037L7.409 13.6077Z"
+                    fill="#805741"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_1761_1610">
+                    <rect width="24" height="22" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+
+              <div>
+                <div className="text-sm mb-2 text-[#805741]">Wallet</div>
+                <div className="text-2xl font-bold mb-4 text-[#805741]">$0.00</div>
+                <div className="text-xs bg-white rounded-full px-2 py-1 w-fit text-black">0.00% (7d)</div>
+              </div>
+            </motion.div>
+
+            <nav className="space-y-2">
+              {navItems.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group hover:translate-x-2
+                    ${pathname === item.href ? "bg-[#E5F9FF]" : "hover:bg-[#E5F9FF]"}`}
                 >
-                  {item.label}
+                  <div
+                    className={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]
+                    ${
+                      pathname === item.href
+                        ? "bg-gradient-to-br from-[#22d6ff] via-[#9fedff] to-[#3cff73]"
+                        : "bg-white border border-[#E5F9FF]"
+                    }`}
+                  >
+                    <item.icon
+                      className={`w-5 h-5 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]
+                      ${pathname === item.href ? "text-black" : "text-black/50 group-hover:text-black"}`}
+                    />
+                  </div>
+                  <span
+                    className={`font-medium transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]
+                    ${pathname === item.href ? "text-black" : "text-black/50 group-hover:text-black"}`}
+                  >
+                    {item.label}
+                  </span>
+                </Link>
+              ))}
+
+              {/* Security Button */}
+              <button
+                onClick={() => setSecurityOpen(true)}
+                className="w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group hover:translate-x-2 hover:bg-[#E5F9FF]"
+              >
+                <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-[#E5F9FF] transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+                  <Shield className="w-5 h-5 text-black/50 group-hover:text-black transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
+                </div>
+                <span className="font-medium text-black/50 group-hover:text-black transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+                  Security
                 </span>
-              </Link>
-            ))}
-          </nav>
+              </button>
+            </nav>
+          </div>
         </div>
       </div>
-    </div>
+
+      <SecurityDialog open={securityOpen} onOpenChange={setSecurityOpen} />
+    </>
   )
 }
 
