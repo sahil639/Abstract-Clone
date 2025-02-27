@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Card } from "@/components/ui/card"
+import { ChevronRight } from "lucide-react"
 
 const tokens = [
   {
@@ -53,10 +54,13 @@ const tokens = [
 
 export function TokenList() {
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-3 gap-4 h-full">
       {tokens.map((token) => (
-        <Card key={token.symbol} className="p-4 rounded-[24px] max-w-[185px]">
-          <div className="flex items-center gap-3">
+        <Card
+          key={token.symbol}
+          className="p-4 rounded-[16px] w-full flex flex-col justify-between border border-solid border-black/10 bg-gradient-to-r from-[#f5f8ff] to-[#fcfdff]"
+        >
+          <div className="flex items-center gap-3 mb-4">
             <motion.div whileHover={{ scale: 1.1 }} className="w-[38px] h-[38px] rounded-full overflow-hidden">
               <img src={token.image || "/placeholder.svg"} alt={token.name} className="w-full h-full object-cover" />
             </motion.div>
@@ -65,12 +69,20 @@ export function TokenList() {
               <div className="text-[11px] text-gray-500">{token.symbol}</div>
             </div>
           </div>
-          <div className="mt-2">
-            <div className="font-medium text-[13px]">${token.price.toFixed(5)}</div>
-            <div className={`text-[11px] ${token.change >= 0 ? "text-green-500" : "text-red-500"}`}>
-              {token.change >= 0 ? "+" : ""}
-              {token.change.toFixed(3)}%
+          <div className="flex items-end justify-between">
+            <div>
+              <div className="font-medium text-[13px]">${token.price.toFixed(5)}</div>
+              <div className={`text-[11px] ${token.change >= 0 ? "text-green-500" : "text-red-500"}`}>
+                {token.change >= 0 ? "+" : ""}
+                {token.change.toFixed(3)}%
+              </div>
             </div>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm"
+            >
+              <ChevronRight className="w-4 h-4 text-gray-600" />
+            </motion.button>
           </div>
         </Card>
       ))}

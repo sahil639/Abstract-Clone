@@ -1,9 +1,15 @@
 import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
 
-export function Header() {
+interface HeaderProps {
+  className?: string
+}
+
+export function Header({ className }: HeaderProps) {
   return (
-    <div className="sticky top-0 bg-white p-6 shadow-banner z-10">
+    <div
+      className={`bg-white rounded-[20px] border border-solid border-white/60 p-8 shadow-banner overflow-auto h-[216px] ${className}`}
+    >
       <div className="max-w-4xl mx-auto text-center">
         <h1 className="text-[32px] font-bold mb-2">Trade anytime, anywhere</h1>
         <p className="text-[16px] text-gray-600 mb-6">Find the tokens you need, and exchange with ease.</p>

@@ -45,49 +45,51 @@ export function SecurityDialog({ open, onOpenChange }: SecurityDialogProps) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-white/45 backdrop-blur-[54px] z-40"
+                className="fixed inset-0 bg-white/45 backdrop-blur-[54px] z-[9997]"
               />
             </Dialog.Overlay>
             <Dialog.Content asChild>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
-                className="fixed left-1/2 top-1/2 z-50 w-full max-w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-[20px] bg-white p-6 shadow-lg focus:outline-none h-[663px] overflow-y-auto"
-              >
-                <div className="flex items-center justify-between mb-6">
-                  <Dialog.Title className="text-2xl font-semibold">Security Settings</Dialog.Title>
-                  <Dialog.Close asChild>
-                    <Button variant="ghost" size="icon" className="rounded-full">
-                      <X className="h-4 w-4" />
-                      <span className="sr-only">Close</span>
-                    </Button>
-                  </Dialog.Close>
-                </div>
+              <div className="fixed inset-0 flex items-center justify-center z-[9998] p-4">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className="w-full max-w-[600px] rounded-[20px] bg-white p-6 shadow-lg focus:outline-none max-h-[90vh] overflow-y-auto"
+                >
+                  <div className="flex items-center justify-between mb-6">
+                    <Dialog.Title className="text-2xl font-semibold">Security Settings</Dialog.Title>
+                    <Dialog.Close asChild>
+                      <Button variant="ghost" size="icon" className="rounded-full">
+                        <X className="h-4 w-4" />
+                        <span className="sr-only">Close</span>
+                      </Button>
+                    </Dialog.Close>
+                  </div>
 
-                <div className="space-y-4">
-                  {securityCards.map((card, index) => (
-                    <motion.div
-                      key={card.title}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1, duration: 0.35 }}
-                      className="p-6 rounded-lg bg-gray-50"
-                    >
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="space-y-1.5">
-                          <h3 className="font-medium">{card.title}</h3>
-                          <p className="text-sm text-gray-500">{card.description}</p>
+                  <div className="space-y-4">
+                    {securityCards.map((card, index) => (
+                      <motion.div
+                        key={card.title}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1, duration: 0.35 }}
+                        className="p-6 rounded-lg bg-gray-50"
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="space-y-1.5">
+                            <h3 className="font-medium">{card.title}</h3>
+                            <p className="text-sm text-gray-500">{card.description}</p>
+                          </div>
+                          <Button variant="outline" className="shrink-0">
+                            {card.action}
+                          </Button>
                         </div>
-                        <Button variant="outline" className="shrink-0">
-                          {card.action}
-                        </Button>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
             </Dialog.Content>
           </Dialog.Portal>
         )}

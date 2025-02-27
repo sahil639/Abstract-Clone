@@ -5,15 +5,13 @@ import { TokenTable } from "@/components/token-table"
 
 export default function Home() {
   return (
-    <>
-      <Header />
-      <div className="p-4">
-        <div className="mt-4 p-6 bg-white rounded-[20px] shadow-banner">
-          <h2 className="text-2xl font-bold mb-6">Most popular tokens</h2>
+    <div className="p-4">
+      <Header className="sticky top-0 z-10 overflow-auto" />
+      <div className="mt-4">
+        <div className="mt-4 p-6 bg-white rounded-[20px] shadow-banner w-full h-full relative block box-border">
+          <h2 className="text-2xl font-bold mb-6 text-center">Most popular tokens</h2>
           <div className="flex gap-4">
-            <div className="w-[392px] h-full">
-              <PriceChart />
-            </div>
+            <PriceChart />
             <div className="flex-1">
               <TokenList />
             </div>
@@ -23,7 +21,7 @@ export default function Home() {
           <TokenTable />
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
